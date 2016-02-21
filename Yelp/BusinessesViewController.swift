@@ -77,6 +77,7 @@ class BusinessesViewController: UIViewController,UITableViewDataSource, UITableV
         self.businesses = businesses
       } else {
         self.businesses = []
+        //
       }
       self.tableView.reloadData()
     }
