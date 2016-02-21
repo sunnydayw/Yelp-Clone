@@ -9,6 +9,7 @@
 import UIKit
 
 class Business: NSObject {
+  
     let name: String?
     let address: String?
     let imageURL: NSURL?
