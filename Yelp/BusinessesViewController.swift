@@ -8,17 +8,20 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, FiltersViewControllerDelegate {
+class BusinessesViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, FiltersViewControllerDelegate, UIScrollViewDelegate {
 
   var businesses: [Business]!
   var filteredBusinesses: [Business]!
   var searchController: UISearchController!
+  var isMoreDataLoading = false
+  var loadingMoreView:InfiniteScrollActivityView?
   
   @IBOutlet weak var tableView: UITableView!
   
     override func viewDidLoad() {
       super.viewDidLoad()
       
+      self.tableView.separatorInset = UIEdgeInsetsZero
       // set up for table view
       tableView.dataSource = self
       tableView.delegate = self
@@ -43,6 +46,14 @@ class BusinessesViewController: UIViewController,UITableViewDataSource, UITableV
           print(business.address!)
         }*/
       })
+      // Set up Infinite Scroll loading indicator
+      let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+      loadingMoreView = InfiniteScrollActivityView(frame: frame)
+      loadingMoreView!.hidden = true
+      tableView.addSubview(loadingMoreView!)
+      var insets = tableView.contentInset;
+      insets.bottom += InfiniteScrollActivityView.defaultHeight;
+      tableView.contentInset = insets
     
 /* Example of Yelp search with more search options specified
         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -126,5 +137,64 @@ extension BusinessesViewController {
     }
   }
   
+}
+
+// Mark: - Infinite ScrollView
+extension BusinessesViewController {
+  
+  func scrollViewDidScroll(scrollView: UIScrollView) {
+    if (!isMoreDataLoading) {
+      // Calculate the position of one screen length before the bottom of the results
+      let scrollViewContentHeight = tableView.contentSize.height
+      let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+      
+      // When the user has scrolled past the threshold, start requesting
+      if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.dragging) {
+        isMoreDataLoading = true
+        // Update position of loadingMoreView, and start loading indicator
+        let frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+        self.loadingMoreView?.frame = frame
+        self.loadingMoreView!.startAnimating()
+        loadMoreData()
+      }
+      
+    }
+  }
+  
+  func loadMoreData() {
+    
+    // ... Create the NSURLRequest (myRequest) ...
+    let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
+    let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+    let myRequest = NSURLRequest(
+      URL: url!,
+      cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
+      timeoutInterval: 10)
+
+    // Configure session so that completion handler is executed on main UI thread
+    let session = NSURLSession(
+      configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+      delegate:nil,
+      delegateQueue:NSOperationQueue.mainQueue()
+    )
+    
+    let task : NSURLSessionDataTask = session.dataTaskWithRequest(myRequest,
+      completionHandler: { (data, response, error) in
+        
+        // Update flag
+        self.isMoreDataLoading = false
+        
+        // Stop the loading indicator
+        self.loadingMoreView!.stopAnimating()
+        
+        // ... Use the new data to update the data source ...
+        
+        
+        // Reload the tableView now that there is new data
+        self.tableView.reloadData()
+    });
+    task.resume()
+  }
+
 }
 

@@ -19,6 +19,7 @@
 		B377F77B1C76EF1000A97214 /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377F77A1C76EF1000A97214 /* BusinessCell.swift */; };
 		B377F77D1C781A7F00A97214 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377F77C1C781A7F00A97214 /* SwitchCell.swift */; };
 		B377F77F1C781B6B00A97214 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377F77E1C781B6B00A97214 /* FiltersViewController.swift */; };
+		B377F7811C7A684300A97214 /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B377F7801C7A684300A97214 /* InfiniteScrollActivityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		B377F77A1C76EF1000A97214 /* BusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
 		B377F77C1C781A7F00A97214 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		B377F77E1C781B6B00A97214 /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
+		B377F7801C7A684300A97214 /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
 		BBD540129B10DFE60E8C24E2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,6 +172,7 @@
 			children = (
 				B377F77A1C76EF1000A97214 /* BusinessCell.swift */,
 				B377F77C1C781A7F00A97214 /* SwitchCell.swift */,
+				B377F7801C7A684300A97214 /* InfiniteScrollActivityView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B377F7811C7A684300A97214 /* InfiniteScrollActivityView.swift in Sources */,
 				B377F77B1C76EF1000A97214 /* BusinessCell.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
 				B377F77F1C781B6B00A97214 /* FiltersViewController.swift in Sources */,
