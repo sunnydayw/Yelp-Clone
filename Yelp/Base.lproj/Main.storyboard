@@ -138,6 +138,22 @@
             </objects>
             <point key="canvasLocation" x="1586" y="282"/>
         </scene>
+        <!--Maps View Controller-->
+        <scene sceneID="lOy-1m-15u">
+            <objects>
+                <viewController id="mWA-yU-XYf" customClass="MapsViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <mapView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="WDq-Da-ZoL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </mapView>
+                    <connections>
+                        <outlet property="mapView" destination="WDq-Da-ZoL" id="7vh-mK-pcX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9gF-3L-cGB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1586" y="933"/>
+        </scene>
         <!--Filters-->
         <scene sceneID="TIJ-Y2-ivh">
             <objects>

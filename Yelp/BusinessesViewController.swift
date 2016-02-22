@@ -15,6 +15,8 @@ class BusinessesViewController: UIViewController,UITableViewDataSource, UITableV
   var searchController: UISearchController!
   var isMoreDataLoading = false
   var loadingMoreView:InfiniteScrollActivityView?
+  var loadMoreOffset = 20
+  var timer: dispatch_source_t!
   
   @IBOutlet weak var tableView: UITableView!
   
@@ -37,7 +39,7 @@ class BusinessesViewController: UIViewController,UITableViewDataSource, UITableV
       definesPresentationContext = true
       // Search on API
       businesses = []
-      Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
+      Business.searchWithTerm("Restaurants", completion: { (businesses: [Business]!, error: NSError!) -> Void in
         print("Search for Thai")
         self.businesses = businesses
         self.tableView.reloadData()
@@ -82,7 +84,7 @@ class BusinessesViewController: UIViewController,UITableViewDataSource, UITableV
   // MARK: - Search Filter
   func filtersviewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
     let categories = filters["categories"] as? [String]
-    Business.searchWithTerm("Restaruants", sort: nil, categories: categories, deals: nil) { (businesses: [Business]!, error: NSError!) -> Void in
+    Business.searchWithTerm("Restaurants", sort: nil, categories: categories, deals: nil) { (businesses: [Business]!, error: NSError!) -> Void in
       print("search for Restaruants")
       if businesses != nil {
         self.businesses = businesses
@@ -162,39 +164,20 @@ extension BusinessesViewController {
   }
   
   func loadMoreData() {
-    
-    // ... Create the NSURLRequest (myRequest) ...
-    let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-    let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
-    let myRequest = NSURLRequest(
-      URL: url!,
-      cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
-      timeoutInterval: 10)
-
-    // Configure session so that completion handler is executed on main UI thread
-    let session = NSURLSession(
-      configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
-      delegate:nil,
-      delegateQueue:NSOperationQueue.mainQueue()
-    )
-    
-    let task : NSURLSessionDataTask = session.dataTaskWithRequest(myRequest,
-      completionHandler: { (data, response, error) in
-        
-        // Update flag
-        self.isMoreDataLoading = false
-        
-        // Stop the loading indicator
-        self.loadingMoreView!.stopAnimating()
-        
-        // ... Use the new data to update the data source ...
-        
-        
-        // Reload the tableView now that there is new data
-        self.tableView.reloadData()
-    });
-    task.resume()
+    Business.searchWithTerm("Restaurants", offset: loadMoreOffset, sort: nil, categories: ["asianfusion", "burgers"], deals: nil, completion: { (let businesses: [Business]!, error: NSError!) -> Void in
+      if error != nil {
+        self.loadingMoreView?.stopAnimating()
+      } else {
+        Dispatch.async(delay: 0.5, block: { () -> () in
+          self.loadMoreOffset += 20
+          self.businesses.appendContentsOf(businesses)
+          self.tableView.reloadData()
+          self.loadingMoreView?.stopAnimating()
+          self.isMoreDataLoading = false
+        })
+      }
+    })
   }
-
+  
 }
 
