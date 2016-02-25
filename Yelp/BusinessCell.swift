@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class BusinessCell: UITableViewCell {
   @IBOutlet weak var thumbImageView: UIImageView!
@@ -49,5 +50,4 @@ class BusinessCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

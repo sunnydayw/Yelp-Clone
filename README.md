@@ -2,7 +2,7 @@
 
 **Name of your app** is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: **X** hours spent in total
+Time spent: **8** hours spent in total
 
 ## User Stories
 
@@ -14,19 +14,22 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ] Search results page
-- [ ] Infinite scroll for restaurant results.
-- [ ] Implement map view of restaurant results.
-- [ ] Implement the restaurant detail page.
+- [x] Search results page
+- [x] Infinite scroll for restaurant results.
+- [x] Implement map view of restaurant results.
+- [x] Implement the restaurant detail page.
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] dynamic mapview, response to user current display restaurant
+- [x] restaurants photo collection using webview
+- [x] quick select predefined categories
+- [x] categories filters
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2. 
+1. using google map API vs iOS Map Kit
+2. How to process JSON data. (BDBOAuth1Manager)
 
 ## Video Walkthrough 
 
@@ -38,11 +41,11 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+It take me little while to understand the yelpClinet.swfit, wish to have class on how to process json data
 
 ## License
 
-Copyright [yyyy] [name of copyright owner]
+Copyright [2016] [Qingtian]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
