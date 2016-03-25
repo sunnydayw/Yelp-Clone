@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc  protocol SwitchCellDelegate {
+@objc protocol SwitchCellDelegate {
   optional func switchCell(switchCell: SwitchCell, didChangeValue value: Bool)
 }
 
